@@ -25,6 +25,8 @@ services:
             - RABBITMQ_ERLANG_COOKIE=Rand0mR4bbitMqCo0k1e789654
             - RABBITMQ_DEFAULT_USER=rabbitmq
             - RABBITMQ_DEFAULT_PASS=rabbitmq
+        volumes:
+            - rabbitmq:/var/lib/rabbitmq/mnesia
         networks: 
             - tasktronic-network
 
@@ -40,7 +42,7 @@ services:
             - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TaskTronicIdentity;User Id=sa; Password=myDbConn3ct10nPassw0rD!@;MultipleActiveResultSets=true
         restart: on-failure
         volumes:
-            - ./.aspnet/identity/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+            - data-protection:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
@@ -58,11 +60,12 @@ services:
             - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TaskTronicDrive;User Id=sa; Password=myDbConn3ct10nPassw0rD!@;MultipleActiveResultSets=true
         restart: on-failure
         volumes:
-            - ./.aspnet/drive/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+            - data-protection:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
             - data
+            - messages
 
     notifications:
         container_name: notifications
@@ -74,11 +77,12 @@ services:
         env_file: TaskTronicApp/TaskTronic/Common.env
         restart: on-failure
         volumes:
-            - ./.aspnet/notifications/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+            - data-protection:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
             - drive
+            - messages
             
     statistics:
         container_name: statistics
@@ -92,11 +96,12 @@ services:
             - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TaskTronicStatistics;User Id=sa; Password=myDbConn3ct10nPassw0rD!@;MultipleActiveResultSets=true
         restart: on-failure
         volumes:
-            - ./.aspnet/statistics/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+            - data-protection:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
             - data
+            - messages
             
     admin:
         container_name: admin
@@ -108,7 +113,7 @@ services:
         env_file: TaskTronicApp/TaskTronic/Common.env
         restart: on-failure
         volumes:
-            - ./.aspnet/admin/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+            - data-protection:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
@@ -125,7 +130,7 @@ services:
         env_file: TaskTronicApp/TaskTronic/Common.env
         restart: on-failure
         volumes:
-            - ./.aspnet/drive.gateway/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+            - data-protection:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
@@ -140,8 +145,6 @@ services:
         ports: 
             - "5013:80"
         restart: on-failure
-        volumes:
-            - ./.aspnet/watchdog/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
         networks: 
             - tasktronic-network
         depends_on:
@@ -166,3 +169,5 @@ networks:
 
 volumes:
     sqldata:
+    rabbitmq:
+    data-protection:
