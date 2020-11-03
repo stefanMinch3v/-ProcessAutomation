@@ -46,7 +46,7 @@ pipeline {
       }
     }
 	stage('Push Images') {
-      when { branch 'main' }
+      // when { branch 'main' }
       steps {
 	  // script runs the whole block like single transaction, DockerHub
         script {
