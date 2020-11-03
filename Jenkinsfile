@@ -45,5 +45,67 @@ pipeline {
 	    }
       }
     }
+	stage('Push Images') {
+      when { branch 'main' }
+      steps {
+	  // script runs the whole block like single transaction, DockerHub
+        script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-identity-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-drive-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-notifications-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-statistics-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-admin-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-drivegateway-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-watchdog-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+		script {
+          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
+            def image = docker.image("stefantestdocker/tasktronic-client-service")
+            image.push("1.0.${env.BUILD_ID}")
+            image.push('latest')
+          }
+        }
+      }
+    }
   }
 }
