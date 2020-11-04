@@ -6,8 +6,8 @@ do {
     $count++
     Write-Output "[$env:STAGE_NAME] Starting container [Attempt: $count]"
 	
-	for($i = 0; $i -lt $array.length; $i++){ 
-		$testStart = Invoke-WebRequest -Uri $array[$i] -UseBasicParsing
+	for($i = 0; $i -lt $arrayApis.length; $i++){ 
+		$testStart = Invoke-WebRequest -Uri $arrayApis[$i] -UseBasicParsing
     
 		if ($testStart.statuscode -eq '200' -Or $testStart.statuscode -eq '401') {
 			$started = $true
