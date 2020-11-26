@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: drive-database
+spec:
+  serviceName: drive-database
+  selector:
+    matchLabels:
+      database: drive
+  template:
+    metadata:
+      labels:
+        database: drive
+        system: database
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: drive-database
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 1433
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+          env:
+          - name: ACCEPT_EULA
+            value: "Y"
+          - name: SA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: environment-secrets
+                key: drive-database-sa-password
+          volumeMounts:
+          - name: drive-database-data
+            mountPath: /var/opt/mssql
+      volumes:
+      - name: drive-database-data
+        persistentVolumeClaim:
+          claimName: drive-database-data
