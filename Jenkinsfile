@@ -17,8 +17,8 @@ pipeline {
      }
 	 stage('Docker Build') {
 	   steps {
-		 powershell(script: 'docker-compose build')     
-		 powershell(script: 'docker images -a')
+        powershell(script: 'docker-compose build')     
+        powershell(script: 'docker images -a')
 	   }
 	 }
 	 stage('Run Test Application') {
@@ -37,12 +37,12 @@ pipeline {
         // powershell(script: 'docker volumes prune -f')   		
       }
       post {
-	    success {
-	      echo "Build successfull! Ready for deploy! :)"
-	    }
-	    failure {
-	      echo "Build failed! You should receive an e-mail! :("
-	    }
+        success {
+          echo "Build successfull! Ready for deploy! :)"
+        }
+        failure {
+          echo "Build failed! You should receive an e-mail! :("
+        }
       }
     }
 	stage('Push Images') {
@@ -51,56 +51,49 @@ pipeline {
 	  // script runs the whole block like single transaction, DockerHub
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-identity-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-identity-service")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
         }
 		script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-drive-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-dealers-service")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
         }
 		script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-notifications-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-notifications-service")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
         }
 		script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-statistics-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-statistics-service")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
         }
 		script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-admin-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-admin-client")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
         }
 		script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-drivegateway-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-user-client")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
         }
 		script {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-watchdog-service")
-            image.push("1.0.${env.BUILD_ID}")
-            image.push('latest')
-          }
-        }
-		script {
-          docker.withRegistry('https://index.docker.io/v1/', 'DockerHubCredentials') {
-            def image = docker.image("stefantestdocker/tasktronic-client-service")
+            def image = docker.image("stefantestdocker/carrentalsystem-watchdog-service")
             image.push("1.0.${env.BUILD_ID}")
             image.push('latest')
           }
