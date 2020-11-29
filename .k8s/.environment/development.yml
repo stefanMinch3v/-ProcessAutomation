@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name:  environment-secrets
-data: #identityDatabasePassword12!@ driveDatabasePassword12!@ statisticsDatabasePassword12!@
-  identity-database-sa-password: aWRlbnRpdHlEYXRhYmFzZVBhc3N3b3JkMTIhQA==
-  dealers-database-sa-password: ZHJpdmVEYXRhYmFzZVBhc3N3b3JkMTIhQA==
-  statistics-database-sa-password: c3RhdGlzdGljc0RhdGFiYXNlUGFzc3dvcmQxMiFA
