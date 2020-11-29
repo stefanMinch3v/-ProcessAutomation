@@ -9,7 +9,7 @@ pipeline {
 	 stage('Run Unit Tests') {
        steps {
          powershell(script: """ 
-           cd TaskTronicApp
+           cd Server
            dotnet test
            cd ..
          """)
