@@ -4,3 +4,6 @@ metadata:
   name: environment-settings
 data:
   seed-initial-data: "True"
+  event-bus-host: event-bus
+  event-bus-user: rabbitmquser
+  notifications-allowed-origins: http://localhost
