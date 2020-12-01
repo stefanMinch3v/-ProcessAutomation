@@ -1,21 +1,48 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dealers-database-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dealers-database
+spec:
+  clusterIP: None # means headless
+  ports:
+  - port: 1433
+    targetPort: 1433
+  selector:
+    database: dealers
+
+---
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: identity-database
+  name: dealers-database
 spec:
-  serviceName: identity-database
+  serviceName: dealers-database
   selector:
     matchLabels:
-      database: identity
+      database: dealers
   template:
     metadata:
       labels:
-        database: identity
+        database: dealers
         system: database
     spec:
       terminationGracePeriodSeconds: 60
       containers:
-        - name: identity-database
+        - name: dealers-database
           image: mcr.microsoft.com/mssql/server:2019-latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -31,11 +58,11 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: environment-secrets
-                key: identity-database-sa-password
+                key: dealers-database-sa-password
           volumeMounts:
-          - name: identity-database-data
+          - name: dealers-database-data
             mountPath: /var/opt/mssql
       volumes:
-      - name: identity-database-data
+      - name: dealers-database-data
         persistentVolumeClaim:
-          claimName: identity-database-data
+          claimName: dealers-database-data

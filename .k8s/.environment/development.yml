@@ -1,4 +1,16 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-settings
+data:
+  seed-initial-data: "True"
+  event-bus-host: event-bus
+  event-bus-user: rabbitmquser
+  notifications-allowed-origins: http://localhost
+
+---
+
+apiVersion: v1
 kind: Secret
 metadata:
   name: environment-secrets
@@ -10,4 +22,3 @@ data: #"identityDatabasePassword12!@" "driveDatabasePassword12!@ (this now is ac
   admin-password: YWRtaW5wYXNzMTIh
   identity-service-connection-string: U2VydmVyPWlkZW50aXR5LQpkYXRhYmFzZTtEYXRhYmFzZT1DYXJSZW50YWxJZGVudGl0eURhdGFiYXNlO1VzZXIgSWQ9c2E7CgpQYXNzd29yZD1pZGVudGl0eURhdGFiYXNlUGFzc3dvcmQxMiFAO011bHRpcGxlQWN0aXZlUmVzdWwKdFNldHM9dHJ1ZQ==
   event-bus-password: cmFiYml0bXFQYXNzd29yZDEyIQ==
-  
