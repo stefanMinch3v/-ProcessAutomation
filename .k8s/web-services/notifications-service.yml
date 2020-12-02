@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  - ReadOnlyMany
+  - ReadOnlyMany 
   resources:
     requests:
       storage: 10Mi
@@ -29,7 +29,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  notifications-service
+  name: notifications-service
 spec:
   selector:
     matchLabels:
@@ -40,10 +40,17 @@ spec:
         web-service: notifications
         system: server
     spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                web-service: notifications
+            topologyKey: "kubernetes.io/hostname"
       containers:
-      - name:  notifications-service
-        image:  stefantestdocker/carrentalsystem-notifications-service
-        imagePullPolicy: IfNotPresent
+      - name: notifications-service
+        image: stefantestdocker/carrentalsystem-notifications-service:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         resources:

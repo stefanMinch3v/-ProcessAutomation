@@ -7,7 +7,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
 
 ---
 
@@ -41,6 +41,8 @@ spec:
         system: database
     spec:
       terminationGracePeriodSeconds: 60
+      securityContext:
+        fsGroup: 10001
       containers:
         - name: statistics-database
           image: mcr.microsoft.com/mssql/server:2019-latest
@@ -49,8 +51,8 @@ spec:
           - containerPort: 1433
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "250m"
+              memory: "2Gi"
+              cpu: "500m"
           env:
           - name: ACCEPT_EULA
             value: "Y"
