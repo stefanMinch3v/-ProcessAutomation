@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: user-client
-        image: stefantestdocker/carrentalsystem-user-client:latest
+        image: stefantestdocker/carrentalsystem-user-client-production:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
