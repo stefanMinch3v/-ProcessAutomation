@@ -27,7 +27,7 @@ export class NotificationsService {
         this.hubConnection
             .start()
             .then(() => console.log('Connection started'))
-            .catch(err => console.log('Error while starting connection: ' + err));
+            .catch(err => console.log('(disabled because Google cloud has maximum of 4 IP addresses.......)\nError while starting connection: ' + err));
 
         this.hubConnection.on('ReceiveNotification', (data) => {
             console.log(data);

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  identityApiUrl: 'http://34.122.74.94:5001/',
-  dealersApiUrl: 'http://35.184.122.109:5002/',
-  statisticsApiUrl: 'http://35.223.2.95:5003/',
-  notificationsUrl: 'http://35.202.99.212:5004/'
+  identityApiUrl: 'http://34.122.47.39:5001/',
+  dealersApiUrl: 'http://35.238.238.98:5002/',
+  statisticsApiUrl: 'http://34.121.111.170:5003/',
+  notificationsUrl: 'http://34.121.48.22:5004/' // disabled, not enough IP addresses in the cloud
 };
