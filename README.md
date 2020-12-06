@@ -2,21 +2,19 @@
 
 ## Forked from: https://github.com/ivaylokenov/Process-Automation-with-ASP.NET-Core-Microservices
 
-This repository contains the demo source code from my [SoftUni course](https://softuni.bg/trainings/3162/process-automation-with-asp-net-core-microservices-october-2020) about Process Automation with ASP.NET Core microservices architecture.
+### Admin and Watchdog clients are removed because GCP (free tier) has ip addresses limit up to 4
 
-If you'd like to support me and my projects, please consider:
+#### Client url - http://35.232.5.145
 
-- [My mentorship program on Patreon](https://www.patreon.com/ivaylokenov)
-- [Become a backer or sponsor on OpenCollective](https://opencollective.com/mytestedaspnet)
-- [One-time donation via PayPal](http://paypal.me/ivaylokenov)
-- [One-time donation via Buy Me A Coffee](http://buymeacoff.ee/ivaylokenov)
-- One-time donation via Revolut: @ivaylowrlt
-- One-time donation via cryptocurrencies:
-  - BTC (Bitcoin) - 3P49XMiGXxqR2Dq1HdqHpkCa6UD848rpBU 
-  - BCH (Bitcoin Cash) - qqgyjlvmuydf6gtfhfdypyw2u8utmc3uqg4nwma3y4
-  - ETH (Ethereum) - 0x2bc55e4b1B9b296B751738631CD24b2f701E588F
-  - LTC (Litecoin) - MQ1GJum1QuqAuUsc6LarE3Z6TQQJ3rJwsA
+### GCP - Kubernetes Engine
+#### Clusters
+![alt text](GCP-images/img.png)
 
-Additional resources:
+#### Workloads
+![alt text](GCP-images/img2.png)
 
-- My YouTube channel is a great place to learn advanced C# concepts. Make sure you subscribe and turn on the bell notifications: https://www.youtube.com/MyTestedASPNETTV
+#### Services & Ingress
+![alt text](GCP-images/img3.png)
+
+#### Storage
+![alt text](GCP-images/img4.png)
